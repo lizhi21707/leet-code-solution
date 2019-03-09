@@ -1,5 +1,7 @@
 package com.leetcode.example;
 
+import java.util.Arrays;
+
 /**
  * Description:
  *
@@ -29,22 +31,62 @@ public class CharacterMultiply {
         int resultLength = num1.length() + num2.length();
         int[] result = new int[resultLength];
 
-        //分成两步
-        //第一步,按位乘
-        //第二步,执行加法
+        char[] num1CharArray = num1.toCharArray();
+        int[] num1IntArray = reverse(num1CharArray);
 
-        final char[] num2Chars = num2.toCharArray();
-        int minBit = 0;
-        for (int i = num2Chars.length - 1; i >= 0; i--) {
-            char single = num2Chars[i];
-            int[] tempResult = multiply(num1.toCharArray(), single);
-            if (!isZero(tempResult)) {
-                result = plus(tempResult, minBit, result);
+        char[] num2CharArray = num2.toCharArray();
+        int[] num2IntArray = reverse(num2CharArray);
+
+        for (int i = 0; i < num1IntArray.length; i++) {
+            for (int j = 0; j < num2IntArray.length; j++) {
+                result[i + j] += num1IntArray[i] * num2IntArray[j];
             }
-            minBit++;
         }
 
-        return printResult(result);
+        System.out.println(Arrays.toString(result));
+        for (int i = 0; i < result.length; i++) {
+            if (result[i] >9) {
+                result[i + 1] += result[i] / 10;
+                result[i] %= 10;
+            }
+            System.out.println(Arrays.toString(result));
+        }
+
+        int lastNotZero = resultLength - 1;
+        while (lastNotZero >= 0 && result[lastNotZero] == 0) {
+            lastNotZero--;
+        }
+
+        if (lastNotZero < 0) {
+            return "0";
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+        while (lastNotZero >= 0) {
+            stringBuilder.append((char) (result[lastNotZero] + '0'));
+            lastNotZero--;
+        }
+
+        return stringBuilder.toString();
+    }
+
+    private int[] reverse(char[] num1CharArray) {
+
+        if (num1CharArray.length <= 0) {
+            return new int[0];
+        }
+
+        int from = 0;
+        int end = num1CharArray.length - 1;
+        int[] result = new int[num1CharArray.length];
+        while (from <= end) {
+            result[end] = num1CharArray[from] - '0';
+            result[from] = num1CharArray[end] - '0';
+            from++;
+            end--;
+        }
+
+        return result;
     }
 
     private String printResult(int[] result) {
@@ -61,6 +103,37 @@ public class CharacterMultiply {
         }
 
         return stringBuilder.toString();
+    }
+
+    public String multiply2(String num1, String num2) {
+
+        if (num1 == null || num2 == null) {
+            return null;
+        }
+
+        if ("0".equals(num1) || "0".equals(num2)) {
+            return "0";
+        }
+
+        int resultLength = num1.length() + num2.length();
+        int[] result = new int[resultLength];
+
+        //分成两步
+        //第一步,按位乘
+        //第二步,执行加法
+
+        final char[] num2Chars = num2.toCharArray();
+        int minBit = 0;
+        for (int i = num2Chars.length - 1; i >= 0; i--) {
+            char single = num2Chars[i];
+            int[] tempResult = multiply(num1.toCharArray(), single);
+            if (!isZero(tempResult)) {
+                result = plus(tempResult, minBit, result);
+            }
+            minBit++;
+        }
+
+        return printResult(result);
     }
 
     private boolean isZero(int[] chars) {
@@ -133,8 +206,40 @@ public class CharacterMultiply {
     public static void main(String[] args) {
 
         final CharacterMultiply solution = new CharacterMultiply();
-        final String multiplyResult = solution.multiply("999221112222", "99333222333");
+        final String multiplyResult = solution.multiply("2", "3");
 
         System.out.println(multiplyResult);
     }
+
+    // public String multiply(string num1, string num2) {
+    //     int x[120] = {0},y[120] = {0},z[250] = {0};
+    //     int len1 = num1.size(),len2 = num2.size();
+    //     倒序
+    //     for(int i = len1-1,k = 0;i>=0;i--)
+    //         x[k++] = num1[i]-'0';
+    //     for(int i = len2-1,k = 0;i>=0;i--)
+    //         y[k++] = num2[i]-'0';
+    //     //在这里进行相乘，但没进位
+    //     for(int i = 0;i<len1;i++) {
+    //         for(int j = 0;j<len2;j++)
+    //             z[i+j] += (x[i]*y[j]);
+    //     }
+    //     //现在进位
+    //     for(int i = 0;i<249;i++) {
+    //         if(z[i]>9){
+    //             z[i+1] += z[i]/10;
+    //             z[i]%=10;
+    //         }
+    //     }
+    //     int i;
+    //     for(i = 249;i>=0;i--)
+    //         if(z[i] != 0)
+    //             break;
+    //     string res = "";
+    //     for(;i>=0;i--)
+    //         res+=(z[i]+'0');
+    //     if(res == "") return "0";
+    //
+    //     return res;
+    // }
 }

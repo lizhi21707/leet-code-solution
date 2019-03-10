@@ -3,7 +3,7 @@ package com.leetcode.example;
 /**
  * Description:
  *
- * @author: lizhi1@corp.netease.com
+ * @author:
  * @date: 2019/03/09
  */
 public class LengthOfLongestSubstring {

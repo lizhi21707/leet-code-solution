@@ -3,12 +3,12 @@ package com.leetcode.example;
 /**
  * Description:
  *
- * @author: lizhi1@corp.netease.com
+ * @author:
  * @date: 2019/03/09
  */
 public class CheckInclusion {
     /**
-     * 字符串的排列
+     * 567.字符串的排列
      * https://leetcode-cn.com/problems/permutation-in-string/
      * 第一个字符串的排列之一是第二个字符串的子串
      */

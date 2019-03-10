@@ -5,12 +5,12 @@ import java.util.Arrays;
 /**
  * Description:
  *
- * @author: lizhi1@corp.netease.com
+ * @author:
  * @date: 2019/03/09
  */
 public class CharacterMultiply {
     /**
-     * 字符串相乘
+     * 43.字符串相乘
      * https://leetcode-cn.com/problems/multiply-strings/
      * 给定两个以字符串形式表示的非负整数 num1 和 num2，返回 num1 和 num2 的乘积，它们的乘积也表示为字符串形式。
      * num1 和 num2 的长度小于110。

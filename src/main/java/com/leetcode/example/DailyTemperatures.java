@@ -6,7 +6,7 @@ import java.util.Stack;
 /**
  * Description:
  *
- * @author: lizhi1@corp.netease.com
+ * @author:
  * @date: 2019/03/10
  */
 public class DailyTemperatures {
